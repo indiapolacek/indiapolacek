@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>India Polacek</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f7f4ef;
+      --warm-white: #fdfcfa;
+      --charcoal: #2a2622;
+      --muted: #7a736a;
+      --sage: #8a9e8c;
+      --sage-light: #c8d9c9;
+      --sage-dark: #5a7a5c;
+      --border: #e0d9d0;
+      --accent: #b5856a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(247, 244, 239, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 3rem;
+      height: 64px;
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--charcoal);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      cursor: pointer;
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--sage-dark); }
+
+    /* SECTIONS */
+    section {
+      display: none;
+      min-height: 100vh;
+      padding: 100px 0 60px;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    section.active { display: block; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* SECTION HEADERS */
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage-dark);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.2rem;
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--charcoal);
+      margin-bottom: 2.5rem;
+    }
+
+    hr.divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2.5rem 0;
+    }
+
+    /* =====================
+       ABOUT
+    ===================== */
+    #about {
+      display: none;
+      align-items: center;
+      padding-top: 0;
+    }
+
+    #about.active {
+      display: flex;
+    }
+
+    .about-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      width: 100%;
+    }
+
+    .about-hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .about-text-block {}
+
+    .hero-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sage-dark);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--charcoal);
+      margin-bottom: 0.3rem;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      color: var(--sage-dark);
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .hero-bio {
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: #4a4540;
+      margin-bottom: 2.2rem;
+    }
+
+    .hero-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .hero-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      padding: 0.55rem 1.1rem;
+      border-radius: 100px;
+      transition: all 0.2s;
+    }
+
+    .hero-link.primary {
+      background: var(--sage-dark);
+      color: white;
+    }
+
+    .hero-link.primary:hover { background: var(--charcoal); }
+
+    .hero-link.secondary {
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: transparent;
+    }
+
+    .hero-link.secondary:hover { border-color: var(--sage); color: var(--sage-dark); }
+
+    .about-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .monogram-wrap {
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--sage-light) 0%, #dde8dd 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .monogram-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -12px;
+      border-radius: 50%;
+      border: 1px solid var(--sage-light);
+    }
+
+    .monogram {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 6rem;
+      font-weight: 300;
+      color: var(--sage-dark);
+      letter-spacing: -0.02em;
+    }
+
+    .floating-tag {
+      position: absolute;
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.6rem 1rem;
+      font-size: 0.75rem;
+      color: var(--charcoal);
+      font-weight: 500;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+
+    .floating-tag.t1 { top: 30px; right: -10px; }
+    .floating-tag.t2 { bottom: 50px; left: -20px; }
+    .floating-tag .tag-label { color: var(--muted); font-weight: 300; font-size: 0.68rem; display: block; }
+
+    /* =====================
+       EDUCATION
+    ===================== */
+    .edu-card {
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .edu-card:last-child { border-bottom: none; }
+
+    .edu-year {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 400;
+      padding-top: 0.2rem;
+      letter-spacing: 0.05em;
+    }
+
+    .edu-institution {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: 0.2rem;
+    }
+
+    .edu-degree {
+      font-size: 0.88rem;
+      color: var(--sage-dark);
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+    }
+
+    .edu-detail {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .gpa-badge {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.25rem 0.7rem;
+      background: var(--sage-light);
+      color: var(--sage-dark);
+      border-radius: 100px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    /* =====================
+       EXPERIENCE
+    ===================== */
+    .exp-card {
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      gap: 2rem;
+    }
+
+    .exp-card:last-child { border-bottom: none; }
+
+    .exp-meta { padding-top: 0.2rem; }
+
+    .exp-org {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .exp-duration {
+      font-size: 0.72rem;
+      color: var(--sage);
+      margin-top: 0.25rem;
+      font-style: italic;
+    }
+
+    .exp-role {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: 0.8rem;
+    }
+
+    .exp-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .exp-bullets li {
+      font-size: 0.86rem;
+      color: #4a4540;
+      line-height: 1.65;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .exp-bullets li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--sage);
+    }
+
+    /* =====================
+       SKILLS
+    ===================== */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .skill-group {
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .skill-group-title {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--sage-dark);
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-tag {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      color: var(--charcoal);
+      border-radius: 6px;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 400;
+    }
+
+    .awards-section {}
+
+    .award-item {
+      display: flex;
+      gap: 1.5rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+    }
+
+    .award-item:last-child { border-bottom: none; }
+
+    .award-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--sage);
+      margin-top: 0.4rem;
+      flex-shrink: 0;
+    }
+
+    .award-name {
+      font-weight: 500;
+      font-size: 0.88rem;
+      color: var(--charcoal);
+    }
+
+    .award-detail {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.15rem;
+    }
+
+    /* =====================
+       CONTACT
+    ===================== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 1rem;
+    }
+
+    .contact-intro {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #4a4540;
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      padding: 1.4rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .contact-item:last-child { border-bottom: none; }
+
+    .contact-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--sage-dark);
+      font-weight: 500;
+    }
+
+    .contact-value {
+      font-size: 0.95rem;
+      color: var(--charcoal);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    a.contact-value:hover { color: var(--sage-dark); }
+
+    .contact-form-side {}
+
+    .form-field {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-field label {
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.45rem;
+      font-weight: 500;
+    }
+
+    .form-field input,
+    .form-field textarea {
+      width: 100%;
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      color: var(--charcoal);
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+    }
+
+    .form-field input:focus,
+    .form-field textarea:focus { border-color: var(--sage); }
+
+    .btn-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--sage-dark);
+      color: white;
+      border: none;
+      border-radius: 100px;
+      padding: 0.75rem 1.8rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-submit:hover { background: var(--charcoal); }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2.5rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 700px) {
+      nav { padding: 0 1.2rem; }
+      .nav-links { gap: 1.2rem; }
+      .about-hero { grid-template-columns: 1fr; gap: 2.5rem; min-height: auto; padding: 2rem 0; }
+      .about-visual { display: none; }
+      .edu-card, .exp-card { grid-template-columns: 1fr; gap: 0.5rem; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .section-title { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" onclick="show('about')">India Polacek</a>
+    <ul class="nav-links">
+      <li><a onclick="show('about')" id="nav-about" class="active">About</a></li>
+      <li><a onclick="show('education')" id="nav-education">Education</a></li>
+      <li><a onclick="show('experience')" id="nav-experience">Experience</a></li>
+      <li><a onclick="show('skills')" id="nav-skills">Skills</a></li>
+      <li><a onclick="show('contact')" id="nav-contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ABOUT -->
+  <section id="about" class="active">
+    <div class="about-inner">
+      <div class="about-hero">
+        <div class="about-text-block">
+          <p class="hero-eyebrow">Psychology & Cognitive Studies</p>
+          <h1 class="hero-name">India<br><em>Polacek</em></h1>
+          <p class="hero-title">Senior at Tulane University</p>
+          <p class="hero-bio">
+            I'm a senior at Tulane University double majoring in <strong>psychology</strong> and <strong>cognitive studies</strong> in the College of Science & Engineering. I'm pursuing the fields of clinical psychology, psychological research, and mental health care — driven by a passion for understanding the human mind and making meaningful impact in people's lives.
+            <br><br>
+            I'm a socially-emotionally intelligent critical-thinker, skilled in conflict resolution, adaptability, and analysis, and I can tackle complex scenarios in psychology and mental health with expertise, determination, and patience.
+          </p>
+          <div class="hero-links">
+            <a class="hero-link primary" href="https://www.linkedin.com/in/indiapolacek/" target="_blank">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              LinkedIn
+            </a>
+            <a class="hero-link secondary" href="mailto:ipolacek@tulane.edu">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Email Me
+            </a>
+            <a class="hero-link secondary" onclick="show('contact')">
+              Get in Touch →
+            </a>
+          </div>
+        </div>
+        <div class="about-visual">
+          <div class="monogram-wrap">
+            <span class="monogram">IP</span>
+          </div>
+          <div class="floating-tag t1">
+            <span class="tag-label">GPA</span>
+            3.6 · Tulane University
+          </div>
+          <div class="floating-tag t2">
+            <span class="tag-label">Study Abroad</span>
+            Copenhagen, Fall 2024
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="container">
+      <p class="section-label">Academic Background</p>
+      <h2 class="section-title">Education</h2>
+
+      <div class="edu-card">
+        <div class="edu-year">2022 – 2026</div>
+        <div>
+          <div class="edu-institution">Tulane University</div>
+          <div class="edu-degree">Bachelor of Science — Psychology & Cognitive Studies</div>
+          <div class="edu-detail">College of Science & Engineering · New Orleans, LA<br>Double major with a focus on clinical psychology, psychological research, and mental health care.</div>
+          <span class="gpa-badge">GPA: 3.6 · Dean's List Fall '22 & Spring '25</span>
+        </div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-year">Fall 2024</div>
+        <div>
+          <div class="edu-institution">Danish Institute for Study Abroad (DIS)</div>
+          <div class="edu-degree">Study Abroad — European Clinical Psychology</div>
+          <div class="edu-detail">Copenhagen, Denmark · Core course in European Clinical Psychology, gaining international perspective on psychological practice and research.</div>
+        </div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-year">2019 – 2022</div>
+        <div>
+          <div class="edu-institution">Crystal Springs Uplands School</div>
+          <div class="edu-degree">High School Education</div>
+          <div class="edu-detail">Hillsborough, CA</div>
+          <span class="gpa-badge">GPA: 3.8</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <p class="section-label">Work & Involvement</p>
+      <h2 class="section-title">Experience</h2>
+
+      <div class="exp-card">
+        <div class="exp-meta">
+          <div class="exp-org">Tulane Psychology Lab</div>
+          <div class="exp-duration">2025 · 6 months</div>
+        </div>
+        <div>
+          <div class="exp-role">Undergraduate Research Assistant</div>
+          <ul class="exp-bullets">
+            <li>Conducted studies focused on social perceptions including social stigma and discrimination</li>
+            <li>Assisted PhD students with study conduction, data gathering, and statistical analysis</li>
+            <li>Applied strong understanding of experimental psychology for lab benefit</li>
+            <li>Navigated Microsoft Excel, Word, Box, and Outlook to manage research workflows</li>
+            <li>Prepared and guided subjects through participation protocols professionally and thoughtfully</li>
+            <li>Followed strict research methods to ensure consistency across participant trials</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-meta">
+          <div class="exp-org">Brennan Behavior Group</div>
+          <div class="exp-duration">2025 · 3 months</div>
+        </div>
+        <div>
+          <div class="exp-role">Behavioral Health Technician</div>
+          <ul class="exp-bullets">
+            <li>Worked with children with autism diagnoses in direct care and skill-building settings</li>
+            <li>Applied ABA (Applied Behavior Analysis) techniques to practice and reinforce coping skills</li>
+            <li>Built rapport with young children to enhance growth trajectory and behavioral development</li>
+            <li>Remained flexible, patient, compassionate, and empathetic throughout all client interactions</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-meta">
+          <div class="exp-org">Epsilon Eta · Tulane University</div>
+          <div class="exp-duration">2025 · 9 months</div>
+        </div>
+        <div>
+          <div class="exp-role">Member — Professional Environmental Fraternity</div>
+          <ul class="exp-bullets">
+            <li>Engaged in environmentally aware and sustainable practices across campus initiatives</li>
+            <li>Educated peers on climate sciences, nature, and eco-friendly behaviors</li>
+            <li>Volunteered to clean the university campus and teach sustainability practices</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-meta">
+          <div class="exp-org">The Green Bandana Project</div>
+          <div class="exp-duration">2025 · 9 months</div>
+        </div>
+        <div>
+          <div class="exp-role">Student Member</div>
+          <ul class="exp-bullets">
+            <li>Provided compassionate support to individuals struggling with mental health challenges</li>
+            <li>Educated university public on topics of suicide and mental illness, using data-driven statistics</li>
+            <li>Worked with individuals anonymously and professionally to protect identity and safety</li>
+            <li>Spread awareness about the significance of mental health across the Tulane campus</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-meta">
+          <div class="exp-org">Tulane Gardening Club</div>
+          <div class="exp-duration">2023 – 2025 · 2 yrs 7 mos</div>
+        </div>
+        <div>
+          <div class="exp-role">Leader & Board Member</div>
+          <ul class="exp-bullets">
+            <li>Led a team to promote human-nature connection through collaborative garden projects</li>
+            <li>Organized club finances, set meeting goals, and drove individual and club-wide missions</li>
+            <li>Facilitated group collaboration through planting, watering, and harvesting activities</li>
+            <li>Educated members on the environment, gardening, and sustainable agriculture</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <p class="section-label">Capabilities & Recognition</p>
+      <h2 class="section-title">Skills</h2>
+
+      <div class="skills-grid">
+        <div class="skill-group">
+          <div class="skill-group-title">Academic & Technical</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Data Reporting</span>
+            <span class="skill-tag">Statistical Analysis</span>
+            <span class="skill-tag">Microsoft Excel</span>
+            <span class="skill-tag">Microsoft Word</span>
+            <span class="skill-tag">Python (Foundational)</span>
+            <span class="skill-tag">Research Methods</span>
+            <span class="skill-tag">ABA Techniques</span>
+            <span class="skill-tag">Experimental Psychology</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Personal & Interpersonal</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Communication</span>
+            <span class="skill-tag">Conflict Resolution</span>
+            <span class="skill-tag">Critical Thinking</span>
+            <span class="skill-tag">Empathy</span>
+            <span class="skill-tag">Leadership</span>
+            <span class="skill-tag">Organization</span>
+            <span class="skill-tag">Public Speaking</span>
+            <span class="skill-tag">Social-Emotional Intelligence</span>
+            <span class="skill-tag">Adaptability</span>
+            <span class="skill-tag">Creativity</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Languages</div>
+          <div class="skill-tags">
+            <span class="skill-tag">English (Native)</span>
+            <span class="skill-tag">Spanish (Intermediate)</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Areas of Focus</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Clinical Psychology</span>
+            <span class="skill-tag">Psychological Research</span>
+            <span class="skill-tag">Mental Health Care</span>
+            <span class="skill-tag">Cognitive Studies</span>
+            <span class="skill-tag">Behavioral Health</span>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider">
+      <p class="section-label">Awards & Certifications</p>
+
+      <div class="awards-section">
+        <div class="award-item">
+          <div class="award-dot"></div>
+          <div>
+            <div class="award-name">CITI Training Certification — Conflict of Interest</div>
+            <div class="award-detail">March 2025</div>
+          </div>
+        </div>
+        <div class="award-item">
+          <div class="award-dot"></div>
+          <div>
+            <div class="award-name">CITI Training Certification — Social & Behavioral Research Investigators</div>
+            <div class="award-detail">February 2025</div>
+          </div>
+        </div>
+        <div class="award-item">
+          <div class="award-dot"></div>
+          <div>
+            <div class="award-name">QPR Suicide Prevention Gatekeeper Certification</div>
+            <div class="award-detail">QPR Institute · February 2025</div>
+          </div>
+        </div>
+        <div class="award-item">
+          <div class="award-dot"></div>
+          <div>
+            <div class="award-name">Dean's List</div>
+            <div class="award-detail">Tulane University · Fall 2022 & Spring 2025</div>
+          </div>
+        </div>
+        <div class="award-item">
+          <div class="award-dot"></div>
+          <div>
+            <div class="award-name">Merit Scholarship: Leadership Award</div>
+            <div class="award-detail">Tulane University · 2022 – 2026</div>
+          </div>
+        </div>
+        <div class="award-item">
+          <div class="award-dot"></div>
+          <div>
+            <div class="award-name">National Charity League — Community Service Award</div>
+            <div class="award-detail">Elderly & Children · June 2022</div>
+          </div>
+        </div>
+        <div class="award-item">
+          <div class="award-dot"></div>
+          <div>
+            <div class="award-name">National Charity League — Community Service Award</div>
+            <div class="award-detail">Families & Vulnerable Individuals · June 2022</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <p class="section-label">Let's Connect</p>
+      <h2 class="section-title">Contact</h2>
+      <p class="contact-intro">
+        I'm always open to conversations about psychology, research opportunities, mental health advocacy, or anything in between. Feel free to reach out!
+      </p>
+      <div class="contact-grid">
+        <div>
+          <div class="contact-item">
+            <span class="contact-label">Email</span>
+            <a href="mailto:ipolacek@tulane.edu" class="contact-value">ipolacek@tulane.edu</a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">Phone</span>
+            <a href="tel:+16507274050" class="contact-value">+1 (650) 727-4050</a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">LinkedIn</span>
+            <a href="https://www.linkedin.com/in/indiapolacek/" target="_blank" class="contact-value">linkedin.com/in/indiapolacek</a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">Location</span>
+            <span class="contact-value">New Orleans, LA (Tulane University)</span>
+          </div>
+        </div>
+        <div class="contact-form-side">
+          <div class="form-field">
+            <label>Your Name</label>
+            <input type="text" placeholder="Jane Smith" />
+          </div>
+          <div class="form-field">
+            <label>Your Email</label>
+            <input type="email" placeholder="jane@example.com" />
+          </div>
+          <div class="form-field">
+            <label>Message</label>
+            <textarea rows="5" placeholder="I'd love to connect about..."></textarea>
+          </div>
+          <button class="btn-submit" onclick="handleSubmit()">Send Message →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 India Polacek · Psychology & Cognitive Studies · Tulane University
+  </footer>
+
+  <script>
+    function show(id) {
+      document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.getElementById('nav-' + id).classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    function handleSubmit() {
+      const btn = document.querySelector('.btn-submit');
+      btn.textContent = '✓ Message Sent!';
+      btn.style.background = '#5a7a5c';
+      setTimeout(() => {
+        btn.textContent = 'Send Message →';
+        btn.style.background = '';
+      }, 3000);
+    }
+  </script>
+
+</body>
+</html>
